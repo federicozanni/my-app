@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import Table from './components/Table';
-import EditTask from './components/EditTask';
 import AddTask from './components/AddTask';
+import EditTask from './components/EditTask';
+import Table from './components/Table';
 
 const App = () => {
 

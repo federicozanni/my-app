@@ -27,9 +27,7 @@ const Table: React.FC<EditTask> = ({tasks, deleteTask, editRow}) => (
             <td>
             <button 
                 className="button-table-edit"
-                onClick={() => {
-                    editRow(task)
-                }}
+                onClick={() => editRow(task)}
                 >
                 Edit
             </button>
