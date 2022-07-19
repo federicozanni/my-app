@@ -2,12 +2,23 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AddTask from "./AddTask";
 
-const addFn = jest.fn((tasks) => {
-  return tasks
+const setTasks = jest.fn((tasks) => {
+  return [
+    ...tasks,
+    {
+      id: tasks.id, 
+      name: tasks.name
+    }
+  ]
 })
 
 const setUp = () => {
-  return render(<AddTask addTask={addFn} />)
+  const initialValues = [{
+    id: '6545', 
+    name: 'task1'
+  }]
+
+  return render(<AddTask tasks={initialValues} setTasks={setTasks}/>)
 }
 
 describe("Add task", () => {
@@ -36,7 +47,7 @@ describe("Add task", () => {
     await waitFor(() => {
       const error = screen.getByText("Este espacio es requerido.")
       expect(error).toBeInTheDocument()
-      expect(addFn).not.toBeCalled()
+      expect(setTasks).not.toBeCalled()
     })
     
   })

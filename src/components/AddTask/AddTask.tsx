@@ -1,25 +1,26 @@
 import React from 'react';
 import { useForm } from 'react-hook-form'
-
-interface Task {
-    id: string;
-    name: string;
-  }
+import { Task } from '../../utils/types';
 
 interface AddTask {
-    addTask: (task: Task) => void;
+  tasks: Task[];
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-const AddTask: React.FC<AddTask> = ({addTask}) => {
+const AddTask = ({tasks, setTasks}:AddTask) => {
 
     const {register, formState: { errors }, handleSubmit} = useForm();
 
-    const onSubmit: any = (data: Task, e: any) => {
-      data.id = ''
-      addTask(data)
-      e.target.reset();
+    const onSubmit:any = (data: Task, e: any) => {
+      setTasks([
+        ...tasks,
+        {
+          id: (+new Date()).toString(),
+          name: data.name
+        }
+      ])
+      e.target.reset()
     }
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

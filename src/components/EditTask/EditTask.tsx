@@ -1,18 +1,15 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { Task } from '../../utils/types';
 
 interface EditTask {
   setEditing: (value: React.SetStateAction<boolean>) => void;
-  currentTask: any
-  updateTask: any;
+  currentTask: Task;
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  tasks: Task[];
 }
 
-interface Task {
-  id: string;
-  name: string;
-}
-
-const EditTask: React.FC<EditTask> = ({setEditing, currentTask, updateTask}) => {
+const EditTask: React.FC<EditTask> = ({setEditing, currentTask, setTasks, tasks}) => {
 
   const {register, formState: { errors }, handleSubmit, setValue} = useForm({
     defaultValues: currentTask
@@ -22,7 +19,8 @@ const EditTask: React.FC<EditTask> = ({setEditing, currentTask, updateTask}) => 
 
   const onSubmit = (data: Task, e: any) => {
     data.id = currentTask.id
-    updateTask(currentTask.id, data)
+    setEditing(false)
+    setTasks(tasks.map((task:Task) => (task.id === currentTask.id ? data : task)))
     e.target.reset()
   }
 
