@@ -26,9 +26,9 @@ describe("App", () => {
   })
 
   it("should get id", () => {
-    render(<Table tasks={tasks} setTasks={setTasks} setEditing={(e=false) => e} setCurrentTask={(e) => e} />)
-    const element = screen.getByTestId('edit-task')
-    expect(element).toBeInTheDocument()
+    //render(<Table tasks={tasks} setTasks={setTasks} setEditing={(e=false) => e} setCurrentTask={(e) => e} />)
+    const element = screen.queryByTestId('edit-task')
+    expect(element).not.toBeInTheDocument()
   })
   
 })

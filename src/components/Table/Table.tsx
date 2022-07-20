@@ -19,6 +19,8 @@ const Table: React.FC<TableTask> = ({tasks, setTasks, setEditing, setCurrentTask
     setCurrentTask({ id: task.id, name: task.name })
   }
 
+  
+
   return (
     <table>
       <thead>

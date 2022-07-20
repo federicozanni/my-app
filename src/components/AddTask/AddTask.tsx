@@ -12,6 +12,7 @@ const AddTask = ({tasks, setTasks}:AddTask) => {
     const {register, formState: { errors }, handleSubmit} = useForm();
 
     const onSubmit:any = (data: Task, e: any) => {
+      
       setTasks([
         ...tasks,
         {

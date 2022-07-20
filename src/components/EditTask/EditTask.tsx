@@ -24,6 +24,10 @@ const EditTask: React.FC<EditTask> = ({setEditing, currentTask, setTasks, tasks}
     e.target.reset()
   }
 
+  const handleEditin = () => {
+    setEditing(false)
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>Name</label>
@@ -38,8 +42,8 @@ const EditTask: React.FC<EditTask> = ({setEditing, currentTask, setTasks, tasks}
       <div>
           {errors?.name?.message}
       </div>
-      <button data-testid="edit-task" type="submit" className='btn-edit-task'>Edit task</button>
-      <button onClick={() => setEditing(false)} className="button muted-button">
+      <button type="submit" className='btn-edit-task'>Edit task</button>
+      <button onClick={handleEditin} className="button muted-button">
           Cancel
       </button>
     </form>

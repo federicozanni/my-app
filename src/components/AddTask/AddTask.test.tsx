@@ -51,4 +51,31 @@ describe("Add task", () => {
     })
     
   })
+
+  it("should button submit", async () => {
+    const input = screen.getByRole("textbox")
+    expect(input).toHaveValue("")
+    userEvent.type(input, 'algo')
+    const button = screen.getByRole("button")
+    userEvent.click(button)
+    await waitFor(() => {
+      const error = screen.getByText("Al menos 5 letras.")
+      expect(error).toBeInTheDocument()
+      expect(setTasks).not.toBeCalled()
+    })
+    
+  })
+
+  it("should input value", async () => {
+    const input = screen.getByRole("textbox")
+    expect(input).toHaveValue("")
+    userEvent.type(input, 'algos')
+    const button = screen.getByRole("button")
+    userEvent.click(button)
+    
+    await waitFor(() => {
+      expect(setTasks).toBeCalled()
+    })
+    
+  })
 })

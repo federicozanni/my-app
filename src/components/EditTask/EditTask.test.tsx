@@ -1,6 +1,7 @@
 import EditTask from "./EditTask";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Task } from "../../utils/types";
+import userEvent from "@testing-library/user-event";
 
 const setTasks = jest.fn((tasks) => {
   return {
@@ -28,9 +29,8 @@ describe('Edit task', () => {
   beforeEach(() => {
     setUp()
   })
-  
-  it('should search id', () => {
-    const testIdBtn = screen.getByTestId("edit-task")
-    expect(testIdBtn).toBeInTheDocument()
+
+  it('should cancel', () => {
+
   })
 })

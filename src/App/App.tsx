@@ -11,7 +11,12 @@ const App = () => {
     name: ''
   }
 
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([
+    {
+      id: '333', 
+      name: 'dddd'
+    }
+  ]);
   const [editing, setEditing] = useState(false)
   const [currentTask, setCurrentTask] = useState(initialValues)
 
