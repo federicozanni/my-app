@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
 interface EditTask {
@@ -30,21 +31,21 @@ const EditTask: React.FC<EditTask> = ({setEditing, currentTask, setTasks, tasks}
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label>Name</label>
+      <label>{TEXT.name}</label>
       <input
         className='input-add-edit'
         type="text"
         {...register('name', {
-          required: 'Este espacio es requerido.',
-          minLength: { value: 5, message: 'Al menos 5 letras.' }
+          required: TEXT.validations.requiere,
+          minLength: { value: 5, message:  TEXT.validations.min }
           })
       }/>
       <div>
           {errors?.name?.message}
       </div>
-      <button type="submit" className='btn-edit-task'>Edit task</button>
+      <button type="submit" className='btn-edit-task'>{TEXT.editTask}</button>
       <button onClick={handleEditin} className="button muted-button">
-          Cancel
+          {TEXT.cancel}
       </button>
     </form>
     );

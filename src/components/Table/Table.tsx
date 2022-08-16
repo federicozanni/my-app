@@ -1,4 +1,5 @@
 import React from 'react';
+import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
 interface TableTask {
@@ -25,8 +26,8 @@ const Table: React.FC<TableTask> = ({tasks, setTasks, setEditing, setCurrentTask
     <table>
       <thead>
         <tr>
-          <th>Task</th>
-          <th>Actions</th>
+          <th>{TEXT.task}</th>
+          <th>{TEXT.actions}</th>
         </tr>
       </thead>
       <tbody>
@@ -39,13 +40,13 @@ const Table: React.FC<TableTask> = ({tasks, setTasks, setEditing, setCurrentTask
                   className="button-table-edit"
                   onClick={() => editRow(task)}
                   >
-                  Edit
+                  {TEXT.edit}
               </button>
               <button 
                   className="button-table-delete"
                   onClick={() => deleteTask(task.id)}
                   >
-                  Delete
+                  {TEXT.delete}
               </button>
               </td>
             </tr>
