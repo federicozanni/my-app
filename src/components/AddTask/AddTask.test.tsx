@@ -13,12 +13,7 @@ const setTasks = jest.fn((tasks) => {
 })
 
 const setUp = () => {
-  const initialValues = [{
-    id: '6545', 
-    name: 'task1'
-  }]
-
-  return render(<AddTask tasks={initialValues} setTasks={setTasks}/>)
+  render(<AddTask />)
 }
 
 describe("Add task", () => {

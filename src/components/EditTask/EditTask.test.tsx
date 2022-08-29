@@ -1,28 +1,8 @@
 import EditTask from "./EditTask";
 import { render, screen, waitFor } from "@testing-library/react";
-import { Task } from "../../utils/types";
-import userEvent from "@testing-library/user-event";
-
-const setTasks = jest.fn((tasks) => {
-  return {
-    ...tasks,
-    id: tasks.id, 
-    name: tasks.name
-  }
-})
-
-const currentTask = {
-  id: '', 
-  name: ''
-}
-
-const tasks:Task[] = [{
-  id: '5454', 
-  name: 'hola'
-}]
 
 const setUp = () => {
-  return render(<EditTask setEditing={(e=false) => e} currentTask={currentTask} setTasks={setTasks} tasks={tasks}/>)
+  return render(<EditTask />)
 }
 
 describe('Edit task', () => {
@@ -30,7 +10,8 @@ describe('Edit task', () => {
     setUp()
   })
 
-  it('should cancel', () => {
-
+  it('should render EditTask', () => {
+    const component = render(<EditTask />)
+    expect(component).toBeInTheDocument()
   })
 })

@@ -1,27 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form'
+import { TodoContext } from '../../context/TodoContext';
 import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
-interface AddTask {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-}
+const AddTask = () => {
+  const { addTasks } = useContext(TodoContext);
 
-const AddTask = ({tasks, setTasks}:AddTask) => {
-
-    const {register, formState: { errors }, handleSubmit} = useForm();
+    const {register, formState: { errors }, handleSubmit, reset} = useForm();
 
     const onSubmit:any = (data: Task, e: any) => {
-      
-      setTasks([
-        ...tasks,
-        {
-          id: (+new Date()).toString(),
-          name: data.name
-        }
-      ])
-      e.target.reset()
+      addTasks(data)
+      reset()
     }
 
   return (

@@ -1,25 +1,13 @@
-import React, {useState} from 'react';
+import {useContext} from 'react';
 import AddTask from '../components/AddTask';
 import EditTask from '../components/EditTask';
 import Table from '../components/Table';
+import { TodoContext } from '../context/TodoContext';
 import { TEXT } from '../utils/translations';
-import { Task } from '../utils/types';
 
 const App = () => {
 
-  const initialValues = {
-    id: '', 
-    name: ''
-  }
-
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: '333', 
-      name: 'dddd'
-    }
-  ]);
-  const [editing, setEditing] = useState(false)
-  const [currentTask, setCurrentTask] = useState(initialValues)
+  const { tasks, editing } = useContext(TodoContext);
 
   return (
     <div className="app-container">
@@ -29,17 +17,12 @@ const App = () => {
         {editing ? (
           <div data-testid="edit-task">
             <h2>{TEXT.editTask}</h2>
-            <EditTask 
-              setEditing={setEditing}
-              currentTask={currentTask}
-              setTasks={setTasks}
-              tasks={tasks}
-            />
+            <EditTask />
           </div>
         ) : (
           <div>
             <h2>{TEXT.addTask}</h2>
-            <AddTask tasks={tasks} setTasks={setTasks} />
+            <AddTask />
           </div>
         )}
       </section>
@@ -47,10 +30,9 @@ const App = () => {
           <h2>{TEXT.viewTask}</h2>
           {
             tasks.length > 0 
-            ? <Table tasks={tasks} setTasks={setTasks} setEditing={setEditing} setCurrentTask={setCurrentTask} />
+            ? <Table />
             : <div>{TEXT.noTask}</div>
           }
-          
         </section>
       </article>
     </div>

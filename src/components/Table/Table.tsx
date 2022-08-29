@@ -1,26 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TodoContext } from '../../context/TodoContext';
 import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
-interface TableTask {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentTask: React.Dispatch<React.SetStateAction<Task>>;
-}
-
-const Table: React.FC<TableTask> = ({tasks, setTasks, setEditing, setCurrentTask}) => {
-  
-  const deleteTask = (id: string) => {
-    setTasks(tasks.filter((task:Task) => task.id !== id))
-  }
-
-  const editRow = (task:Task) => {
-    setEditing(true) 
-    setCurrentTask({ id: task.id, name: task.name })
-  }
-
-  
+const Table: React.FC = () => {
+  const { tasks, deleteTask, editRow } = useContext(TodoContext);
 
   return (
     <table>

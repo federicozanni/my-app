@@ -1,27 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form';
+import { TodoContext } from '../../context/TodoContext';
 import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
-interface EditTask {
-  setEditing: (value: React.SetStateAction<boolean>) => void;
-  currentTask: Task;
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-  tasks: Task[];
-}
+const EditTask: React.FC = () => {
+  const { currentTask, editTask, setEditing } = useContext(TodoContext);
 
-const EditTask: React.FC<EditTask> = ({setEditing, currentTask, setTasks, tasks}) => {
-
-  const {register, formState: { errors }, handleSubmit, setValue} = useForm({
+  const {register, formState: { errors }, handleSubmit} = useForm({
     defaultValues: currentTask
   });
 
-  setValue('name', currentTask.name)
-
   const onSubmit = (data: Task, e: any) => {
-    data.id = currentTask.id
-    setEditing(false)
-    setTasks(tasks.map((task:Task) => (task.id === currentTask.id ? data : task)))
+    editTask(data)
     e.target.reset()
   }
 
