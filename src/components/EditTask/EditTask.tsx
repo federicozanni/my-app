@@ -7,6 +7,7 @@ import { Task } from '../../utils/types';
 const EditTask: React.FC = () => {
   const { currentTask, editTask, setEditing } = useContext(TodoContext);
 
+<<<<<<< HEAD
   const {register, formState: { errors }, handleSubmit, reset} = useForm({
     defaultValues: currentTask
   });
@@ -14,6 +15,15 @@ const EditTask: React.FC = () => {
   const onSubmit = (data: Task) => {
     editTask(data)
     reset()
+=======
+  const {register, formState: { errors }, handleSubmit} = useForm({
+    defaultValues: currentTask
+  });
+
+  const onSubmit = (data: Task, e: any) => {
+    editTask(data)
+    e.target.reset()
+>>>>>>> 58a0813d8ce737ca9aa8b3dabe3e4034b699e813
   }
 
   const handleEditin = () => {

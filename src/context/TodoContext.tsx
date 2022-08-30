@@ -14,7 +14,11 @@ const todoInitialState: TodoState = {
   editing: false
 }
 
+<<<<<<< HEAD
 export const TodoProvider = ({children, value}:any) => {
+=======
+export const TodoProvider = ({children}:any) => {
+>>>>>>> 58a0813d8ce737ca9aa8b3dabe3e4034b699e813
   const [tasks, setTask] = React.useState<Task[]>(todoInitialState.tasks)
   const [editing, setEdit] = React.useState(todoInitialState.editing)
   const [currentTask, setCurrentTask] = React.useState(initialValues)
@@ -62,7 +66,10 @@ export const TodoProvider = ({children, value}:any) => {
   return(
     <TodoContext.Provider value={{
       ...state,
+<<<<<<< HEAD
       ...value,
+=======
+>>>>>>> 58a0813d8ce737ca9aa8b3dabe3e4034b699e813
       tasks,
       editing,
       currentTask,
