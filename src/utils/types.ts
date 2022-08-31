@@ -15,10 +15,10 @@ export type TodoContextProps = {
   tasks: Task[];
   editing: boolean;
   currentTask: Task;
-  addTasks: (payload: Task | any) => void;
+  addTasks: (payload: Task) => void;
   setEditing: (payload: boolean) => void;
   deleteTask: (payload: string) => void;
-  editRow: (payload: Task) => void;
+  setCurrentTask: (payload: Task) => void;
   editTask: (payload: Task) => void;
 }
 
@@ -37,5 +37,5 @@ export type TodoAction =
 
 export type TodoProviderProps = {
   children: JSX.Element;
-  value: TodoState;
+  value?: TodoState;
 }

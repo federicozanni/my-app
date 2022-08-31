@@ -11,7 +11,7 @@ import {
 
 export const TodoContext = React.createContext({} as TodoContextProps)
 
-const initialValues = {
+export const initialValues = {
   id: '', 
   name: ''
 }
@@ -48,6 +48,25 @@ export const TodoProvider = ({children, value}: TodoProviderProps) => {
     })
   }
 
+  const setCurrentTask = (payload: Task) => {
+    const currentTask = { id: payload.id, name: payload.name }
+
+    dispatch({
+      type: SET_CURRENT_TASK,
+      payload: currentTask
+    })
+  }
+
+  const editTask = (payload: Task) => {
+    const taskEdit = state.tasks.map((task:Task) => (task.id === state.currentTask.id ? payload : task))
+    setCurrentTask(initialValues)
+
+    dispatch({
+      type: SET_EDIT_TASK,
+      payload: taskEdit
+    })
+  }
+
   const deleteTask = (payload: string) => {
     const taskFilter = state.tasks.filter((task: Task) => task.id !== payload)
 
@@ -56,25 +75,7 @@ export const TodoProvider = ({children, value}: TodoProviderProps) => {
       payload: taskFilter
     })
   }
-
-  const editRow = (payload: Task) => {
-    const setCurrentTask = { id: payload.id, name: payload.name }
-
-    dispatch({
-      type: SET_CURRENT_TASK,
-      payload: setCurrentTask
-    })
-  }
-
-  const editTask = (payload: Task) => {
-    const taskEdit = state.tasks.map((task:Task) => (task.id === state.currentTask.id ? payload : task))
-
-    dispatch({
-      type: SET_EDIT_TASK,
-      payload: taskEdit
-    })
-  }
-
+  
   return(
     <TodoContext.Provider value={{
       ...state,
@@ -82,7 +83,7 @@ export const TodoProvider = ({children, value}: TodoProviderProps) => {
       addTasks,
       setEditing,
       deleteTask,
-      editRow,
+      setCurrentTask,
       editTask
     }}>
       {children}

@@ -6,7 +6,6 @@ import { TodoContext } from '../context/TodoContext';
 import { TEXT } from '../utils/translations';
 
 const App = () => {
-
   const { tasks, editing } = useContext(TodoContext);
 
   return (

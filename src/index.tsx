@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <TodoProvider value={{...todoInitialState}}>
+    <TodoProvider>
       <App />
     </TodoProvider>
   </React.StrictMode>
