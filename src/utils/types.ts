@@ -1,3 +1,11 @@
+import { 
+  SET_TASKS,
+  SET_EDITING,
+  SET_CURRENT_TASK,
+  SET_DELETE_TASK,
+  SET_EDIT_TASK
+} from "../actionTypes/TodoTypes";
+
 export interface Task {
   id: string;
   name: string;
@@ -17,8 +25,17 @@ export type TodoContextProps = {
 export interface TodoState {
   tasks: Task[];
   editing: boolean;
+  currentTask: Task;
 }
 
 export type TodoAction = 
-  | { type: 'setTasks', payload: Task[] }
-  | { type: 'setEditing', payload: boolean }
+  | { type: `${typeof SET_TASKS}`, payload: Task[] }
+  | { type: `${typeof SET_EDITING}`, payload: boolean }
+  | { type: `${typeof SET_CURRENT_TASK}`, payload: Task }
+  | { type: `${typeof SET_DELETE_TASK}`, payload: Task[] }
+  | { type: `${typeof SET_EDIT_TASK}`, payload: Task[] }
+
+export type TodoProviderProps = {
+  children: JSX.Element;
+  value: TodoState;
+}
