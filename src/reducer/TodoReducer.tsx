@@ -6,7 +6,6 @@ import {
   SET_DELETE_TASK,
   SET_EDIT_TASK
 } from '../actionTypes/TodoTypes';
-import { todoInitialState } from '../context/TodoContext';
 
 export const todoReducer = ( state: TodoState, action: TodoAction ) => {
 

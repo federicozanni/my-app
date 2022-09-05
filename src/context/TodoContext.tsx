@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { todoReducer } from '../reducer/TodoReducer';
-import { TodoState, TodoContextProps, Task, TodoProviderProps } from '../utils/types';
+import { TodoState, TodoContextProps, Task, TodoProviderProps, TodoDispatch } from '../utils/types';
 import { 
   SET_TASKS,
   SET_EDITING,
@@ -22,8 +22,15 @@ export const todoInitialState: TodoState = {
   currentTask: initialValues
 }
 
+function useTodo(): [TodoState, TodoDispatch] {
+  const context:any = useContext(TodoContext)
+  if (context === undefined) {
+    throw new Error('useTodoContext must be used whitin a TodoProviderProps')
+  }
+  return context
+}
+
 export const TodoProvider = ({children, value}: TodoProviderProps) => {
-  
   const [state, dispatch] = React.useReducer(todoReducer, todoInitialState);
 
   const addTasks = (payload: Task) => {
@@ -76,17 +83,24 @@ export const TodoProvider = ({children, value}: TodoProviderProps) => {
     })
   }
   
+  const finalState: TodoState = {
+    ...state,
+    ...value
+  };
+
+  const dispatchers: TodoDispatch = {
+    addTasks,
+    setEditing,
+    deleteTask,
+    setCurrentTask,
+    editTask
+  }
+
   return(
-    <TodoContext.Provider value={{
-      ...state,
-      ...value,
-      addTasks,
-      setEditing,
-      deleteTask,
-      setCurrentTask,
-      editTask
-    }}>
+    <TodoContext.Provider value={[finalState, dispatchers]}>
       {children}
     </TodoContext.Provider>
   )
 }
+
+export { useTodo };

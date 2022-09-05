@@ -1,12 +1,11 @@
-import {useContext} from 'react';
 import AddTask from '../components/AddTask';
 import EditTask from '../components/EditTask';
 import Table from '../components/Table';
-import { TodoContext } from '../context/TodoContext';
+import { useTodo } from '../context/TodoContext';
 import { TEXT } from '../utils/translations';
 
 const App = () => {
-  const { tasks, editing } = useContext(TodoContext);
+  const [{tasks, editing}] = useTodo()
 
   return (
     <div className="app-container">

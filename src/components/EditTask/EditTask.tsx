@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form';
-import { initialValues, TodoContext } from '../../context/TodoContext';
+import { initialValues, useTodo } from '../../context/TodoContext';
 import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
 const EditTask: React.FC = () => {
-  const { currentTask, editTask, setEditing, setCurrentTask } = useContext(TodoContext);
+  const [{currentTask}, {editTask, setEditing, setCurrentTask}] = useTodo()
 
   const {register, formState: { errors }, handleSubmit, reset} = useForm({
     defaultValues: currentTask

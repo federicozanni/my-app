@@ -11,10 +11,13 @@ export interface Task {
   name: string;
 }
 
-export type TodoContextProps = {
+export interface TodoState {
   tasks: Task[];
   editing: boolean;
   currentTask: Task;
+}
+
+export interface TodoDispatch {
   addTasks: (payload: Task) => void;
   setEditing: (payload: boolean) => void;
   deleteTask: (payload: string) => void;
@@ -22,11 +25,11 @@ export type TodoContextProps = {
   editTask: (payload: Task) => void;
 }
 
-export interface TodoState {
-  tasks: Task[];
-  editing: boolean;
-  currentTask: Task;
-}
+export type TodoContextProps = [
+  finalState: TodoState,
+  dispatchers: TodoDispatch
+]
+
 
 export type TodoAction = 
   | { type: `${typeof SET_TASKS}`, payload: Task[] }
