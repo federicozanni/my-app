@@ -23,7 +23,7 @@ export const todoInitialState: TodoState = {
 }
 
 function useTodo(): [TodoState, TodoDispatch] {
-  const context:any = useContext(TodoContext)
+  const context = useContext(TodoContext)
   if (context === undefined) {
     throw new Error('useTodoContext must be used whitin a TodoProviderProps')
   }
