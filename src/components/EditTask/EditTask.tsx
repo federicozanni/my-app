@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form';
-import { TodoContext } from '../../context/TodoContext';
+import { initialValues, useTodo } from '../../context/TodoContext';
 import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
 const EditTask: React.FC = () => {
-  const { currentTask, editTask, setEditing } = useContext(TodoContext);
+  const [{currentTask}, {editTask, setEditing, setCurrentTask}] = useTodo()
 
   const {register, formState: { errors }, handleSubmit, reset} = useForm({
     defaultValues: currentTask
@@ -18,6 +18,7 @@ const EditTask: React.FC = () => {
 
   const handleEditin = () => {
     setEditing(false)
+    setCurrentTask(initialValues)
   }
 
   return (
@@ -26,6 +27,7 @@ const EditTask: React.FC = () => {
       <input
         className='input-add-edit'
         type="text"
+        defaultValue={currentTask.name}
         {...register('name', {
           required: TEXT.validations.requiere,
           minLength: { value: 5, message:  TEXT.validations.min }

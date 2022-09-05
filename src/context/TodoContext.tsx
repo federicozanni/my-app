@@ -1,78 +1,106 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { todoReducer } from '../reducer/TodoReducer';
-import { TodoState, TodoContextProps, Task } from '../utils/types';
+import { TodoState, TodoContextProps, Task, TodoProviderProps, TodoDispatch } from '../utils/types';
+import { 
+  SET_TASKS,
+  SET_EDITING,
+  SET_CURRENT_TASK,
+  SET_DELETE_TASK,
+  SET_EDIT_TASK
+} from '../actionTypes/TodoTypes';
 
 export const TodoContext = React.createContext({} as TodoContextProps)
 
-const initialValues = {
+export const initialValues = {
   id: '', 
   name: ''
 }
 
-const todoInitialState: TodoState = {
+export const todoInitialState: TodoState = {
   tasks: [],
-  editing: false
+  editing: false,
+  currentTask: initialValues
 }
 
-export const TodoProvider = ({children, value}:any) => {
-  const [tasks, setTask] = React.useState<Task[]>(todoInitialState.tasks)
-  const [editing, setEdit] = React.useState(todoInitialState.editing)
-  const [currentTask, setCurrentTask] = React.useState(initialValues)
+function useTodo(): [TodoState, TodoDispatch] {
+  const context:any = useContext(TodoContext)
+  if (context === undefined) {
+    throw new Error('useTodoContext must be used whitin a TodoProviderProps')
+  }
+  return context
+}
 
+export const TodoProvider = ({children, value}: TodoProviderProps) => {
   const [state, dispatch] = React.useReducer(todoReducer, todoInitialState);
 
   const addTasks = (payload: Task) => {
-    setTask([
-      ...tasks,
-      {
-        id: (+new Date()).toString(),
-        name: payload.name
-      }
-    ])
+    const setTask = [
+        ...state.tasks,
+        {
+          id: (+new Date()).toString(),
+          name: payload.name
+        }
+      ]
 
     dispatch({
-      type: 'setTasks',
-      payload: tasks
+      type: SET_TASKS,
+      payload: setTask
     })
   }
 
   const setEditing = (payload: boolean) => {
-    setEdit(payload)
-
     dispatch({
-      type: 'setEditing',
+      type: SET_EDITING,
       payload: payload
     })
   }
 
-  const deleteTask = (payload: string) => {
-    setTask(tasks.filter((task: Task) => task.id !== payload))
-  }
+  const setCurrentTask = (payload: Task) => {
+    const currentTask = { id: payload.id, name: payload.name }
 
-  const editRow = (payload: Task) => {
-    setEditing(true)
-    setCurrentTask({ id: payload.id, name: payload.name })
+    dispatch({
+      type: SET_CURRENT_TASK,
+      payload: currentTask
+    })
   }
 
   const editTask = (payload: Task) => {
-    setEditing(false)
-    setTask(tasks.map((task:Task) => (task.id === currentTask.id ? payload : task)))
+    const taskEdit = state.tasks.map((task:Task) => (task.id === state.currentTask.id ? payload : task))
+    setCurrentTask(initialValues)
+
+    dispatch({
+      type: SET_EDIT_TASK,
+      payload: taskEdit
+    })
+  }
+
+  const deleteTask = (payload: string) => {
+    const taskFilter = state.tasks.filter((task: Task) => task.id !== payload)
+
+    dispatch({
+      type: SET_DELETE_TASK,
+      payload: taskFilter
+    })
+  }
+  
+  const finalState: TodoState = {
+    ...state,
+    ...value
+  };
+
+  const dispatchers: TodoDispatch = {
+    addTasks,
+    setEditing,
+    deleteTask,
+    setCurrentTask,
+    editTask
   }
 
   return(
-    <TodoContext.Provider value={{
-      ...state,
-      ...value,
-      tasks,
-      editing,
-      currentTask,
-      addTasks,
-      setEditing,
-      deleteTask,
-      editRow,
-      editTask
-    }}>
+    <TodoContext.Provider value={[finalState, dispatchers]}>
       {children}
     </TodoContext.Provider>
   )
 }
+
+export { useTodo };

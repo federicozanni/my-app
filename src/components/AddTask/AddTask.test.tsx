@@ -1,19 +1,14 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { todoInitialState, TodoProvider } from "../../context/TodoContext";
 import AddTask from "./AddTask";
 
-const setTasks = jest.fn((tasks) => {
-  return [
-    ...tasks,
-    {
-      id: tasks.id, 
-      name: tasks.name
-    }
-  ]
-})
-
 const setUp = () => {
-  render(<AddTask />)
+  render(
+    <TodoProvider value={{...todoInitialState}}>
+      <AddTask />
+    </TodoProvider>
+  )
 }
 
 describe("Add task", () => {
@@ -22,7 +17,7 @@ describe("Add task", () => {
   })
 
   it("should render component initial", () => {
-    const labelText = screen.getByText("Name")
+    const labelText = screen.getByText("name")
     expect(labelText).toBeInTheDocument()
   })
 
@@ -42,7 +37,6 @@ describe("Add task", () => {
     await waitFor(() => {
       const error = screen.getByText("Este espacio es requerido.")
       expect(error).toBeInTheDocument()
-      expect(setTasks).not.toBeCalled()
     })
     
   })
@@ -56,7 +50,6 @@ describe("Add task", () => {
     await waitFor(() => {
       const error = screen.getByText("Al menos 5 letras.")
       expect(error).toBeInTheDocument()
-      expect(setTasks).not.toBeCalled()
     })
     
   })
@@ -68,9 +61,6 @@ describe("Add task", () => {
     const button = screen.getByRole("button")
     userEvent.click(button)
     
-    await waitFor(() => {
-      expect(setTasks).toBeCalled()
-    })
     
   })
 })

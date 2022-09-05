@@ -1,18 +1,12 @@
 import Table from "./Table";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { TodoProvider } from "../../context/TodoContext";
-import { TodoState } from "../../utils/types";
+//import userEvent from "@testing-library/user-event";
+import { todoInitialState, TodoProvider } from "../../context/TodoContext";
 
 
 const task = {
   id: '456',
   name: 'task1'
-}
-
-const todoInitialState: TodoState = {
-  tasks: [],
-  editing: false
 }
 
 const setUp = () => {

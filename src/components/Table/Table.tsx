@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { TodoContext } from '../../context/TodoContext';
+import React from 'react';
+import { useTodo } from '../../context/TodoContext';
 import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
 const Table: React.FC = () => {
-  const { tasks, deleteTask, editRow } = useContext(TodoContext);
+  const [{tasks}, {deleteTask, setCurrentTask}] = useTodo()
 
   return (
     <table>
@@ -22,7 +22,7 @@ const Table: React.FC = () => {
               <td>
               <button 
                   className="button-table-edit"
-                  onClick={() => editRow(task)}
+                  onClick={() => setCurrentTask(task)}
                   >
                   {TEXT.edit}
               </button>

@@ -1,0 +1,5 @@
+export const SET_TASKS = 'SET_TASKS'
+export const SET_EDITING = 'SET_EDITING'
+export const SET_CURRENT_TASK = 'SET_CURRENT_TASK'
+export const SET_DELETE_TASK = 'SET_DELETE_TASK'
+export const SET_EDIT_TASK = 'SET_EDIT_TASK'

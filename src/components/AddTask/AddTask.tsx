@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form'
-import { TodoContext } from '../../context/TodoContext';
+import { useTodo } from '../../context/TodoContext';
 import { TEXT } from '../../utils/translations';
 import { Task } from '../../utils/types';
 
 const AddTask = () => {
-  const { addTasks } = useContext(TodoContext);
+  const [, {addTasks}] = useTodo()
 
     const {register, formState: { errors }, handleSubmit, reset} = useForm();
 
-    const onSubmit:any = (data: Task, e: any) => {
+    const onSubmit:any = (data: Task) => {
       addTasks(data)
       reset()
     }

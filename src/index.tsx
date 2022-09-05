@@ -4,7 +4,6 @@ import App from './App';
 import "./App.css";
 import { TodoProvider } from './context/TodoContext';
 import reportWebVitals from './reportWebVitals';
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
