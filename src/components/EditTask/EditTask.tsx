@@ -22,22 +22,23 @@ const EditTask: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className='edit__task' onSubmit={handleSubmit(onSubmit)}>
       <label>{TEXT.name}</label>
       <input
-        className='input-add-edit'
+        className='task__input'
         type="text"
         defaultValue={currentTask.name}
         {...register('name', {
           required: TEXT.validations.requiere,
+          maxLength: { value: 50, message: TEXT.validations.max},
           minLength: { value: 5, message:  TEXT.validations.min }
           })
       }/>
       <div>
           {errors?.name?.message}
       </div>
-      <button type="submit" className='btn-edit-task'>{TEXT.editTask}</button>
-      <button onClick={handleEditin} className="button muted-button">
+      <button type="submit" className='edit__task__button--edit'>{TEXT.editTask}</button>
+      <button onClick={handleEditin} className="edit__task__button--cancel">
           {TEXT.cancel}
       </button>
     </form>
