@@ -8,12 +8,12 @@ const App = () => {
   const [{tasks, editing}] = useTodo()
 
   return (
-    <div className="app-container">
-      <h1>{TEXT.toDoList}</h1>
-      <article className="article-container">
-        <section className="add-edit-task">
+    <div className="app__container">
+      <h1 className="app__container--title">{TEXT.toDoList}</h1>
+      <article className="article__container">
+        <section className="action__task">
         {editing ? (
-          <div data-testid="edit-task">
+          <div data-testid="edit__task">
             <h2>{TEXT.editTask}</h2>
             <EditTask />
           </div>
@@ -24,12 +24,12 @@ const App = () => {
           </div>
         )}
       </section>
-        <section className="view-task">
-          <h2>{TEXT.viewTask}</h2>
+        <section className="view__task">
+          <h2 className="view__task--title">{TEXT.viewTask}</h2>
           {
             tasks.length > 0 
             ? <Table />
-            : <div>{TEXT.noTask}</div>
+            : <div className="view__task--subtitle">{TEXT.noTask}</div>
           }
         </section>
       </article>

@@ -14,20 +14,21 @@ const AddTask = () => {
     }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className='add__task' onSubmit={handleSubmit(onSubmit)}>
       <label>{TEXT.name}</label>
       <input
-        className='input-add-edit'
+        className='task__input'
         type="text"
         {...register('name', {
           required: TEXT.validations.requiere,
+          maxLength: { value: 50, message: TEXT.validations.max},
           minLength: { value: 5, message:  TEXT.validations.min }
           })
         }/>
       <div>
         {errors?.name?.message}
       </div>
-      <button type="submit">{TEXT.addTask}</button>
+      <button className='add__task__button' type="submit">{TEXT.addTask}</button>
     </form>
   );
 }

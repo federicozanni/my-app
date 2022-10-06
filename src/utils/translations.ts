@@ -13,6 +13,7 @@ export const TEXT = {
   noTask: 'No tasks',
   validations: {
     requiere: 'Este espacio es requerido.',
-    min: 'Al menos 5 letras.'
+    min: 'Al menos 5 letras.',
+    max: 'Superó el límite de caracteres.',
   }
 }
